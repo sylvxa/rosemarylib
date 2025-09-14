@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "testmod",
+  "version": "1.0.0",
+  "name": "Testmod",
+  "description": "a testmod made with extra love <3",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/testmod/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "lol.sylvie.testmod.Testmod"
+    ]
+  },
+  "depends": {
+    "rosemarylib": ">=1.0.0"
+  }
+}
