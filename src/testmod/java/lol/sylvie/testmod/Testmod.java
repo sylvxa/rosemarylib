@@ -29,7 +29,7 @@ public class Testmod implements ModInitializer {
             new DialogBuilder(player, Text.literal("Test"))
                     .bodyText(Text.literal("Here are some persistent values you can modify!"))
                     .bodyItem(PlayerHeadUtil.getPlayerHead(player), 16, 16)
-                    .bodyItem(PlayerHeadUtil.getPlayerHead(player.getServer(), UUID.fromString("75f9c6f0-5dc1-4e24-92ee-82fd64392936"), "sylvxa"), 16, 16)
+                    .bodyItem(PlayerHeadUtil.getPlayerHead(player.getEntityWorld().getServer(), UUID.fromString("75f9c6f0-5dc1-4e24-92ee-82fd64392936"), "sylvxa"), 16, 16)
                     .numberInput("favorite_number", 400, Text.literal("Favorite Number"), new NumberRangeInputControl.RangeInfo(0, 80085, Optional.of((float) playerData.getFavoriteNumber()), Optional.of(1f)))
                     .textInput("preferred_name", 400, Text.literal("Preferred Name"), playerData.getPreferredName(), 64)
                     .singleOptionInput("searching_for", 400, Text.literal("Searching for"), Arrays.stream(ExamplePlayerContainer.ExamplePlayerData.SearchingFor.values()).map(e -> new SingleOptionInputControl.Entry(e.name(), Optional.empty(), playerData.getSearchingFor().equals(e))).toList())

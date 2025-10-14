@@ -10,5 +10,6 @@ public class Rosemary implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
     }
 }

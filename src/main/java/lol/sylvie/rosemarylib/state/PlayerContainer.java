@@ -26,7 +26,7 @@ public abstract class PlayerContainer<T extends PlayerContainer<T, P>, P extends
 
 
     public P getPlayerState(ServerPlayerEntity player) {
-        return getPlayerState(player.getServer(), player.getUuid());
+        return getPlayerState(player.getEntityWorld().getServer(), player.getUuid());
     }
 
     public P getPlayerState(LivingEntity entity) {
