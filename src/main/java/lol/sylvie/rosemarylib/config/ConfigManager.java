@@ -9,10 +9,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class ConfigManager<T extends ConfigManager.Instance> {
     public static final Gson GSON = new GsonBuilder()
@@ -39,7 +36,8 @@ public class ConfigManager<T extends ConfigManager.Instance> {
     public void read(File file) {
         try (FileReader reader = new FileReader(file)) {
             this.instance = (T) GSON.fromJson(reader, instance.getClass());
-        } catch (IOException | JsonSyntaxException readException) {
+        } catch (FileNotFoundException ignored) {}
+        catch (IOException | JsonSyntaxException readException) {
             logger.warn("Error while reading config:", readException);
             this.write(file);
         }

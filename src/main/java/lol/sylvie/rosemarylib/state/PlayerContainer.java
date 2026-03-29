@@ -2,10 +2,10 @@ package lol.sylvie.rosemarylib.state;
 
 import com.mojang.serialization.Codec;
 import lombok.Getter;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -13,8 +13,8 @@ public abstract class PlayerContainer<T extends PlayerContainer<T, P>, P extends
     @Getter
     public HashMap<UUID, P> players = new HashMap<>();
 
-    public PlayerContainer(String modId, Codec<T> codec) {
-        super(modId, codec);
+    public PlayerContainer(Identifier dataId, Codec<T> codec) {
+        super(dataId, codec);
     }
 
     public abstract P getDefaultPlayerState(UUID playerId);
@@ -25,13 +25,13 @@ public abstract class PlayerContainer<T extends PlayerContainer<T, P>, P extends
     }
 
 
-    public P getPlayerState(ServerPlayerEntity player) {
-        return getPlayerState(player.getEntityWorld().getServer(), player.getUuid());
+    public P getPlayerState(ServerPlayer player) {
+        return getPlayerState(player.level().getServer(), player.getUUID());
     }
 
     public P getPlayerState(LivingEntity entity) {
-        if (!(entity instanceof ServerPlayerEntity player))
-            throw new RuntimeException("Entity must be a ServerPlayerEntity to hold persistent data!");
+        if (!(entity instanceof ServerPlayer player))
+            throw new RuntimeException("Entity must be a ServerPlayer to hold persistent data!");
         return getPlayerState(player);
     }
 }

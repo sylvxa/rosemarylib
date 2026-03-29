@@ -7,7 +7,8 @@ import lol.sylvie.rosemarylib.state.PlayerData;
 import lol.sylvie.testmod.Testmod;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.util.Uuids;
+import net.minecraft.core.UUIDUtil;
+import net.minecraft.resources.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,15 +16,17 @@ import java.util.UUID;
 
 public class ExamplePlayerContainer extends PlayerContainer<ExamplePlayerContainer, ExamplePlayerContainer.ExamplePlayerData> {
     private static final Codec<ExamplePlayerContainer> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.unboundedMap(Uuids.CODEC, ExamplePlayerData.CODEC).fieldOf("players").forGetter(PlayerContainer::getPlayers)
+            Codec.unboundedMap(UUIDUtil.STRING_CODEC, ExamplePlayerData.CODEC).fieldOf("players").forGetter(PlayerContainer::getPlayers)
     ).apply(instance, ExamplePlayerContainer::new));
 
+    private static final Identifier dataId = Identifier.fromNamespaceAndPath(Testmod.MOD_ID, "saved_data");
+
     public ExamplePlayerContainer() {
-        super(Testmod.MOD_ID, CODEC);
+        super(dataId, CODEC);
     }
 
     public ExamplePlayerContainer(Map<UUID, ExamplePlayerData> map) {
-        super(Testmod.MOD_ID, CODEC);
+        super(dataId, CODEC);
         this.players = new HashMap<>(map);
     }
 
