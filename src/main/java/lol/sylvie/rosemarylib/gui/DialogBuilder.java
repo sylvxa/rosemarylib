@@ -100,8 +100,12 @@ public class DialogBuilder {
         return this.textInput(key, width, label, value, maxLength, null);
     }
 
+    public DialogBuilder checkboxInput(String key, Component label, boolean value, String trueText, String falseText) {
+        return this.input(key, new BooleanInput(label, value, trueText, falseText));
+    }
+
     public DialogBuilder checkboxInput(String key, Component label, boolean value) {
-        return this.input(key, new BooleanInput(label, value, null, null));
+        return this.checkboxInput(key, label, value, "ON", "OFF");
     }
 
     public DialogBuilder numberInput(String key, int width, Component label, String format, NumberRangeInput.RangeInfo range) {
@@ -122,7 +126,7 @@ public class DialogBuilder {
         buttons.add(button);
         if (!actions.containsKey(buttonId))
             actions.put(buttonId, callback);
-        else Rosemary.LOGGER.warn("Action {} was added twice :(", buttonId);
+        //else Rosemary.LOGGER.warn("Action {} was added twice :(", buttonId);
         return this;
     }
 
